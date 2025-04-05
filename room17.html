@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>РЕГИСТЪР ЗА ДОСТЪП</title>
+    <style>
+        body {
+            background-color: black; 
+            background-size: cover;
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            text-align: center;
+            padding-top: 50px;
+        }
+        .terminal {
+            background-color: black;
+            border: 3px solid #00FFFF;
+            width: 90%;
+            margin: auto;
+            padding: 20px;
+            text-align: left;
+            box-shadow: 0px 0px 15px #00FFFF;
+        }
+        .input-line {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        textarea {
+            background: none;
+            border: none;
+            color: #00FF00;
+            font-size: 1.2em;
+            font-family: 'Courier New', monospace;
+            outline: none;
+            width: 80%;
+            text-align: center;
+        }
+        .button {
+            background-color: #00ff3a;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-family: 'Courier New', monospace;
+            text-transform: uppercase;
+            box-shadow: 0px 0px 10px #00ff3a;
+        }
+        .button:hover {
+            background-color: #00ff3a;
+            box-shadow: 0px 0px 15px #00ff3a;
+        }
+        #output {
+            margin-top: 20px;
+            white-space: pre-line;
+            text-align: left;
+            padding: 10px;
+            border: 2px solid #00ff00;
+            display: none;
+            background-color: black;
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            width: 80%;
+            margin: auto;
+            box-shadow: 0px 0px 10px #00ff00;
+        }
+        
+         .blink {
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            50% { opacity: 0; }
+        } 
+        
+     .dos-button {
+        background-color: black;
+        color: #00ff00;
+        font-family: 'Courier New', monospace;
+        font-size: 18px;
+        border: 2px solid #00ff00;
+        padding: 10px 20px;
+        text-transform: uppercase;
+        cursor: pointer;
+        box-shadow: 0px 0px 8px #00ff00;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .dos-button:hover {
+        background-color: #00ff00;
+        color: black;
+        box-shadow: 0px 0px 15px #00ff00;
+    }
+    </style>
+</head>
+<body>
+    <div class="clock">
+    <span id="msdos-clock"></span>
+</div>
+
+<script>
+    function updateClock() {
+        let now = new Date(); 
+
+        let year = 1990; 
+        let month = 4;   
+        let day = 7;     
+
+        let hours = now.getHours().toString().padStart(2, '0');
+        let minutes = now.getMinutes().toString().padStart(2, '0');
+        let seconds = now.getSeconds().toString().padStart(2, '0');
+
+        let formattedTime = `${day}/${month}/${year} - ${hours}:${minutes}:${seconds}`;
+        document.getElementById("msdos-clock").textContent = formattedTime;
+    }
+
+    setInterval(updateClock, 1000); 
+    updateClock(); 
+</script>
+
+<style>
+    .clock {
+        font-family: 'Courier New', monospace;
+        font-size: 1.5em;
+        color: #00FF00;
+        background-color: black;
+        padding: 5px;
+        display: inline-block;
+        border: 2px solid #00FFFF;
+        box-shadow: 0px 0px 5px #00FFFF;
+         position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 12px; /* Adjust the size as needed */
+    font-weight: bold;
+    }
+</style>
+<button class="dos-button" onclick="window.location.href='asylum.version2.html'">← Назад</button>
+    
+
+    <div class="terminal">
+        <center> 
+        <h2>=== АРХИВ ===</h2>
+        <h1> РЕГИСТЪР ЗА ДОСТЪП И ИЗПОЛЗВАНЕ НА ТЕРАПЕВТИЧНИ КАБИНЕТИ</h1>
+        <p>  </p>
+ <h3>
+  ПЕРИОД НА ЗАПИСИ: 1988Г. - 1989Г. </h3> </center>
+
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: monospace;
+            padding: 20px;
+        }
+        .log-container {
+            border: 2px solid #0f0;
+            padding: 15px;
+            width: 700px;
+            height: 400px;
+            overflow-y: auto;
+            background-color: black;
+        
+    
+        }
+        .search-box {
+            margin-bottom: 10px;
+        }
+        input {
+            background-color: black;
+            color: white;
+            border: 1px solid #0f0;
+            font-family: monospace;
+            padding: 5px;
+        }
+        #log-end {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+
+<body>
+
+
+<p style="color:#0f0;"> <i> ВНИМАНИЕ: <br>
+    Всички пациенти трябва да бъдат официално регистрирани преди използването на специализираните терапевтични кабинети. </i></p> 
+    
+    
+<p>Въведете име, за да търсите запис:</p>
+<input type="text" id="search" class="search-box" placeholder="Пример: Мария" onkeyup="searchLogs()">
+
+<div class="log-container" id="logbook"></div>
+
+<script>
+    const logEntries = `
+
+ДАТА: 20 АПРИЛ 1988  | ЧАС: 14:00
+ПАЦИЕНТ: ИВАН ДИМИТРОВ
+ЛЕКАР: Д-Р АНТОН ГОЦЕВ
+АСИСТЕНТ: Д-Р ИЛИАНА СТОЙНОВА
+ОТГОВОРНИК: ГЕОРГИ ДИМИТРИЕВ
+--------------------------------------------
+
+ДАТА: 17 МАЙ 1988  | ЧАС: 15:30
+ПАЦИЕНТ: ИВАН ДИМИТРОВ
+ЛЕКАР: Д-Р АНТОН ГОЦЕВ
+АСИСТЕНТ: Д-Р ИЛИАНА СТОЙНОВА
+ОТГОВОРНИК: ГЕОРГИ ДИМИТРИЕВ
+--------------------------------------------
+
+ДАТА: 3 ЮНИ 1988  | ЧАС: 11:00
+ПАЦИЕНТ: БИСЕР ИВАНОВ
+ЛЕКАР: Д-Р АНТОН ГОЦЕВ
+АСИСТЕНТ: Д-Р ИЛИАНА СТОЙНОВА
+ОТГОВОРНИК: ГЕОРГИ ДИМИТРИЕВ
+--------------------------------------------
+ДАТА: 5 СЕПТЕМВРИ 1988  | ЧАС: 12:45
+ПАЦИЕНТ: ИВАН ДИМИТРОВ
+ЛЕКАР: Д-Р АНТОН ГОЦЕВ
+АСИСТЕНТ: Д-Р ИЛИАНА СТОЙНОВА
+ОТГОВОРНИК: ГЕОРГИ ДИМИТРИЕВ
+--------------------------------------------
+ДАТА: 27 СЕПТЕМВРИ 1988  | ЧАС: 16:45
+ПАЦИЕНТ: МАРИЯ НИКОЛОВА
+ЛЕКАР: Д-Р АНТОН ГОЦЕВ
+АСИСТЕНТ: Д-Р ИЛИАНА СТОЙНОВА
+ОТГОВОРНИК: ГЕОРГИ ДИМИТРИЕВ
+--------------------------------------------
+ДАТА: 1 ОКТОМВРИ 1988  | ЧАС: 12:30
+ПАЦИЕНТ: ВАСИЛ ВАСИЛЕВ
+ЛЕКАР: Д-Р АНТОН ГОЦЕВ
+АСИСТЕНТ: Д-Р ИЛИАНА СТОЙНОВА
+ОТГОВОРНИК: ГЕОРГИ ДИМИТРИЕВ
+--------------------------------------------
+ДАТА: 4 ОКТОМВРИ 1988  | ЧАС: 14:00
+ПАЦИЕНТ: ВАСИЛ ВАСИЛЕВ
+ЛЕКАР: Д-Р АНТОН ГОЦЕВ
+АСИСТЕНТ: Д-Р ИЛИАНА СТОЙНОВА
+ОТГОВОРНИК: ГЕОРГИ ДИМИТРИЕВ
+--------------------------------------------
+ДАТА: 8 ОКТОМВРИ 1988  | ЧАС: 17:15
+ПАЦИЕНТ: ВАСИЛ ВАСИЛЕВ
+ЛЕКАР: Д-Р АНТОН ГОЦЕВ
+АСИСТЕНТ: Д-Р ИЛИАНА СТОЙНОВА
+ОТГОВОРНИК: ГЕОРГИ ДИМИТРИЕВ
+--------------------------------------------
+ДАТА: 22 НОЕМВРИ 1988  | ЧАС: 11:30
+ПАЦИЕНТ: БИСЕР ИВАНОВ
+ЛЕКАР: Д-Р АНТОН ГОЦЕВ
+АСИСТЕНТ: Д-Р ИЛИАНА СТОЙНОВА
+ОТГОВОРНИК: ГЕОРГИ ДИМИТРИЕВ
+--------------------------------------------
+ДАТА: 5 ДЕКЕМВРИ 1988  | ЧАС: 13:30
+ПАЦИЕНТ: ИВАН ДИМИТРОВ
+ЛЕКАР: Д-Р АНТОН ГОЦЕВ
+АСИСТЕНТ: Д-Р ИЛИАНА СТОЙНОВА
+ОТГОВОРНИК: ГЕОРГИ ДИМИТРИЕВ
+--------------------------------------------
+ДАТА: 29 ЯНУАРИ 1989  | ЧАС: 10:45
+ПАЦИЕНТ: МАРИЯ НИКОЛОВА
+ЛЕКАР: Д-Р АНТОН ГОЦЕВ
+АСИСТЕНТ: Д-Р ИЛИАНА СТОЙНОВА
+ОТГОВОРНИК: ГЕОРГИ ДИМИТРИЕВ
+--------------------------------------------
+ДАТА: 16 ФЕВРУАРИ 1989  | ЧАС: 09:45
+ПАЦИЕНТ: БИСЕР ИВАНОВ
+ЛЕКАР: Д-Р АНТОН ГОЦЕВ
+АСИСТЕНТ: Д-Р ИЛИАНА СТОЙНОВА
+ОТГОВОРНИК: ГЕОРГИ ДИМИТРИЕВ
+--------------------------------------------
+ДАТА: 3 ЮЛИ 1989  | ЧАС: 09:30
+ПАЦИЕНТ: ИВАН ДИМИТРОВ
+ЛЕКАР: Д-Р АНТОН ГОЦЕВ
+АСИСТЕНТ: Д-Р ИЛИАНА СТОЙНОВА
+ОТГОВОРНИК: ГЕОРГИ ДИМИТРИЕВ
+--------------------------------------------
+ДАТА: 14 ЮЛИ 1989 | ЧАС: 14:00
+ПАЦИЕНТ: БИСЕР ИВАНОВ
+ЛЕКАР: Д-Р АНТОН ГОЦЕВ
+АСИСТЕНТ: Д-Р ИЛИАНА СТОЙНОВА
+ОТГОВОРНИК: ГЕОРГИ ДИМИТРИЕВ
+--------------------------------------------
+ДАТА: 11 СЕПТЕМВРИ 1989  | ЧАС: 10:00
+ПАЦИЕНТ: ИВАН ДИМИТРОВ
+ЛЕКАР: Д-Р АНТОН ГОЦЕВ
+АСИСТЕНТ: Д-Р ИЛИАНА СТОЙНОВА
+ОТГОВОРНИК: ГЕОРГИ ДИМИТРИЕВ
+--------------------------------------------
+ДАТА: 17 СЕПТЕМВРИ 1989  | ЧАС: 14:00
+ПАЦИЕНТ: БИСЕР ИВАНОВ
+ЛЕКАР: Д-Р АНТОН ГОЦЕВ
+АСИСТЕНТ: Д-Р ИЛИАНА СТОЙНОВА
+ОТГОВОРНИК: ГЕОРГИ ДИМИТРИЕВ
+--------------------------------------------
+ДАТА: 9 ОКТОМВРИ 1989  | ЧАС: 15:30
+ПАЦИЕНТ: МАРИЯ НИКОЛОВА
+ЛЕКАР: Д-Р АНТОН ГОЦЕВ
+АСИСТЕНТ: Д-Р ИЛИАНА СТОЙНОВА
+ОТГОВОРНИК: ГЕОРГИ ДИМИТРИЕВ
+--------------------------------------------
+
+<span id="log-end">⚠ КРАЙ НА ФАЙЛА - НЯМА ПОВЕЧЕ ЗАПИСИ ⚠</span>
+--------------------------------------------
+    `;
+
+    const logbook = document.getElementById('logbook');
+    logbook.innerHTML = `<pre>${logEntries}</pre>`;
+
+    function searchLogs() {
+        let input = document.getElementById('search').value.trim().toLowerCase();
+        
+        // Hide Gavril completely
+        if (input.includes("гаврил")) {
+            logbook.innerHTML = `<pre>❌ НЕ Е НАМЕРЕН ЗАПИС</pre>`;
+            return;
+        }
+
+        let logs = logEntries.split("--------------------------------------------");
+        let filteredLogs = logs.filter(entry => entry.toLowerCase().includes(input));
+
+        if (filteredLogs.length > 0) {
+            logbook.innerHTML = `<pre>${filteredLogs.join("--------------------------------------------")}</pre>`;
+        } else {
+            logbook.innerHTML = `<pre>❌ НЕ Е НАМЕРЕН ЗАПИС</pre>`;
+        }
+
+        // Show full logs if input is empty
+        if (input === '') {
+            logbook.innerHTML = `<pre>${logEntries}</pre>`;
+        }
+    }
+</script>
+
+</body>
+</html>
+
+
+
+    
+
+
