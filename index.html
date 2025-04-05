@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BBS chat #107 </title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #000;
+      color: #0f0;
+      font-family: monospace;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #header {
+      border-bottom: 1px solid #0f0;
+      padding: 8px;
+    }
+    #header pre {
+      margin: 0;
+      color: #0f0;
+    }
+
+    #info-bar {
+      border-bottom: 1px solid #0f0;
+      padding: 4px 8px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+    }
+    #info-bar span {
+      color: #0f0;
+      margin-right: 10px;
+    }
+
+    #chat-container {
+      flex: 1;
+      padding: 8px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      background-color: black;
+      color: green;
+      font-family: monospace;
+      padding: 20px;
+      width: 600px;
+      margin: auto;
+      border: 2px solid green;
+      height: 400px;
+    }
+
+    .message {
+      margin: 4px 0;
+      line-height: 1.4;
+    }
+    .player {
+      color: #0f0;
+    }
+    .nadia {
+      color: #0ff;
+    }
+
+    #input-area {
+      display: flex;
+      border-top: 1px solid #0f0;
+    }
+    #user-input {
+      flex: 1;
+      padding: 8px;
+      background-color: #000;
+      color: #0f0;
+      border: none;
+      outline: none;
+      font-family: monospace;
+      font-size: 14px;
+    }
+    #send-btn {
+      padding: 8px 12px;
+      background-color: #0f0;
+      color: #000;
+      border: none;
+      cursor: pointer;
+      font-family: monospace;
+      font-size: 14px;
+    }
+    #send-btn:hover {
+      background-color: #0c0;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+      background-color: #111;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #0f0;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="header">
+<pre>
+--------------------------------------------
+       PRIVATE CHAT //: NADIA_IX
+--------------------------------------------
+</pre>
+  </div>
+   <div style="text-align: right;">
+  <button style="background-color: #0f0; color: black; border: 2px solid #0f0; padding: 10px 16px; font-family: monospace; font-size: 16px; cursor: pointer; text-transform: uppercase; font-weight: bold; box-shadow: none; transition: 0.3s; border-radius: 0;" 
+  onclick="window.open('asylumlobby.html', '_blank')">
+    \\\ ARCHIVE . local ///
+  </button>
+</div>
+
+
+
+  <div id="info-bar">
+    <div>
+      <span> =></span>
+      <span>No Topic</span>
+    </div>
+    <div>
+      <span> SECURE </span>
+    </div>
+  </div>
+
+  <div id="chat-container"></div>
+
+  <div id="input-area">
+    <input type="text" id="user-input" placeholder="напиши съобщение..." autocomplete="off">
+    <button id="send-btn">ИЗПРАТИ</button>
+  </div>
+
+  <script>
+    const chatContainer = document.getElementById('chat-container');
+    const userInput = document.getElementById('user-input');
+    const sendBtn = document.getElementById('send-btn');
+
+    const nadiaResponses = [
+      "Сигурен/а ли си? Ако да, трябва да знаеш – не можеш да се върнеш назад.",
+        "Добре! Намерих документи и информация, които доказват, че болницата е продължила да работи.",
+      "Прекалено много следи водят обратно там – странни разходи по закрити сметки, доклади за доставки на лекарства месеци след затварянето… Някой е държал „Възраждане“ жива дори след като всички са я погребали на хартия..",
+        "Всичко започна с това че търсех досието на брат ми. Просто исках да открия какво са му правили. Вместо това се натъкнах на нещо много по-голямо. Открих вътрешна мрежа – затворена система, достъпна само за персонала. Тук са пазели пациентски записи, резултати от терапии, дори вътрешни съобщения.",
+"Когато болницата затвори, всичко това сигурно е трябвало да изчезне. Но наскоро открих, че част от тази система все още е активна. Все още изпраща сигнали. Кой я поддържа? Защо? Не знам. Но разбрах как да се свържа с нея.",
+
+"Това, което четеш сега, не е „чат“ в истинския смисъл. Това са останките от вътрешен комуникационен модул – инструмент, който персоналът е използвал за бързи съобщения. Аз го… хакнах. Не напълно, но достатъчно, за да оставя това, което виждаш.",
+"Отплеснах се в обяснения..Важното е, че имаме достъп до самия ГОЦЕВ! Следите водят обратно в болницата. Ако продължим, вече няма връщане назад. Аз стигнах дотук, но не мога да продължа сама!",
+        "Не смятам, че само Гоцев е злодея. Дъщеря му, Людмила, все парадира, че иска да стои далеч от името му, да се дистанцира от миналото. Но аз не ѝ вярвам.",
+        "И не е само тя. Персоналът… тези, които все още са наоколо. Кълнат се, че не знаят нищо. Но малките детайли ги издават. Защо не казват истината?",
+      "Чувстваш ли се наблюдаван/а? Не се притеснявай. Това е нормално.",
+"Та.. за да разберем всичко трябва да влезеш в съзнанието на Гоцев.",
+      "Да, ти и сега си вътре, но имаш още информация за намиране. Това тук е архивът - частично запазване на информация от болницата. Именно и архивът, който Гоцев е използвал – неговото лично хранилище. Има документи за експериментите, терапиите… но и хаотична колекция от информация. Повечето неща или не са били качени, или са се изгубили завинаги.",
+"Ще е нужно да го разгледаш добре, за да намериш отговорите.",
+"Влизането в архива ще е лесно, но достъпът до различните папки ще е труден. За целта просто разгледай личното пространство на Гоцев. Аз зърнах отговорите, когато бях там. Пробвай и ти - там някъде ще се огледаш в истината.",
+        "За съжаление, така и не открих журнала му... сигурна съм, че и там има нещо...",
+"Когато провериш всичко в архива, се върни отново тук и ми напиши коя е първата дума, която брат ми използва в рисунката си. Тогава ще знам, че заслужаваш моята част от пъзела и ще можеш да го наредиш.",
+    
+    ];
+    
+    let responseIndex = 0;
+    let waitingForPassword = false;
+    const correctPassword = "тишината";  
+
+    function appendMessage(sender, text) {
+      const msgDiv = document.createElement('div');
+      msgDiv.classList.add('message', sender);
+      msgDiv.textContent = sender === 'player' ? `Me: ${text}` : `NADIA_IX: ${text}`;
+      chatContainer.appendChild(msgDiv);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+        
+    }
+
+    function getNadiaResponse() {
+      if (responseIndex < nadiaResponses.length) {
+        return nadiaResponses[responseIndex++];
+      } else {
+        waitingForPassword = true;
+        userInput.placeholder = "Въведи парола...";
+        return "Засега това е всичко от мен. Влез в архива - ти знаеш какво трябва да направиш. ";
+      }
+    }
+
+  function handlePasswordEntry(inputText) {
+  if (inputText.toLowerCase() === correctPassword.toLowerCase()) {
+    const messageContainer = document.createElement('div');
+    messageContainer.classList.add('message', 'nadia'); // Apply styling for Nadia's message
+    
+    messageContainer.innerHTML = `
+      <p><strong>NADIA_IX:</strong> Това е моментът, в който разбрах, че всичко, което мислех, че знам, може да е грешно. Камерите от онази нощ са изчистени, но не всички. Намерих запис… Единственият, на който Гоцев е заснет. Показва това, което никой не иска да се види.. Гоцев е единственият, който влиза и никога не излиза от тази болница...</p>
+      <video width="640" height="360" controls style="margin-top: 10px; border: 2px solid #00ffff; box-shadow: 0px 0px 10px #00ffff;">
+        <source src="cctvvideo.mp4" type="video/mp4">
+        Вашият браузър не поддържа видео елемента.
+      </video>
+    `;
+
+    chatContainer.appendChild(messageContainer);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+    
+    // Hide input and button after correct answer
+    userInput.style.display = "none";  
+    sendBtn.style.display = "none";    
+  } else {
+    appendMessage('nadia', "Не... Това не е правилният отговор.Каква е първата дума в рисунката на брат ми Бисер? Помисли отново.");
+  }
+}
+
+
+
+    function sendMessage() {
+      const text = userInput.value.trim();
+      if (!text) return;
+
+      appendMessage('player', text);
+      userInput.value = "";
+
+      setTimeout(() => {
+        if (waitingForPassword) {
+          handlePasswordEntry(text);
+        } else {
+          appendMessage('nadia', getNadiaResponse());
+        }
+      }, Math.floor(Math.random() * 1000) + 1000);
+    }
+
+    sendBtn.addEventListener('click', sendMessage);
+    userInput.addEventListener('keyup', function(event) {
+      if (event.key === 'Enter') {
+        sendMessage();
+      }
+    });
+
+    setTimeout(() => {
+      appendMessage('nadia', " Четеш внимателно - браво! Нека се захващаме за работа... Архивите на „Възраждане“ не са напълно изчезнали – просто са заключени на място, където никой не гледа. Посетих болницата тайно няколко пъти и ще продължавам да я посещавам, докато не сглобя пъзела. А за него ми трябваш точно ТИ!  Полицията и службите? Те няма да направят нищо. Дори да им дадем всичко, ще го заровят толкова дълбоко, че никой никога няма да го види.Така че аз избирам теб. Имам информация. Ти имаш избор. Ако продължиш, няма връщане назад.Ще го направиш ли?");
+    }, 500);
+  </script>
+</body>
+</html>
+
+
